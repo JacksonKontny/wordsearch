@@ -1,0 +1,70 @@
+swagger: "2.0"
+info:
+  description: "This is a doc for a special crossword search algorithm."
+  version: "1.0.0"
+  title: "Swagger Crossword Search"
+  
+basePath: "/v1"
+schemes:
+- "http"
+paths:
+  /search:
+    post:
+      summary: "Search a board for a list of words"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Board and words that will be searched"
+        schema:
+          $ref: "#/definitions/BoardSearch"
+      responses:
+        405:
+          description: "Invalid input"
+        200:
+          description: "Success"
+          schema:
+            $ref: "#/definitions/BoardSearchSuccessResponse"
+          
+definitions:
+  BoardSearch:
+    type: "object"
+    properties:
+      board:
+        $ref: "#/definitions/Board"
+      words:
+        $ref: "#/definitions/Words"
+    required:
+    - "board"
+    - "words"
+
+  Board:
+    type: "array"
+    items:
+      type: "string"
+    example: ["fdog", "icat", "spig", "hant"]
+  Words:
+    type: "array"
+    items:
+      type: "string"
+    example: ["dog", "cat", "pig", "fish"]
+
+  ApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      message:
+        type: "string"
+  BoardSearchSuccessResponse:
+    type: "array"
+    items:
+      type: "string"
+    example: ["dog", "cat", "pig", "fish"]
