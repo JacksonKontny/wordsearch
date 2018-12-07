@@ -15,7 +15,7 @@ class TestSearch(TestCase):
         with mock.patch.object(application, 'validate_board_search', side_effect=ValidationError('invalid')):
             response = self.client.post('/v1/search')
         self.assertEqual(response.json, {'error': 'invalid'})
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 400)
 
     def test_success(self):
         with mock.patch.object(

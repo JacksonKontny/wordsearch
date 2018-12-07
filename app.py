@@ -17,7 +17,7 @@ def search():
     try:
         validate_board_search(request.json)
     except ValidationError as exception:
-        return _get_json_response({'error': str(exception)}, 404)
+        return _get_json_response({'error': str(exception)}, 400)
     board = request.json.get('board')
     words = request.json.get('words')
     return _get_json_response(get_words_present_in_board(board, words), 200)
